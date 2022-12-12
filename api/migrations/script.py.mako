@@ -7,6 +7,8 @@ Create Date: ${create_date}
 """
 from alembic import op
 import sqlalchemy as sa
+
+# REMEMBER TO GET UUID WORKING
 import sqlalchemy_utils
 ${imports if imports else ""}
 

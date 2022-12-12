@@ -4,30 +4,9 @@ from models import *
 from schemas import *
 from sqlalchemy.exc import IntegrityError
 
-def list_users():
-    return db.session.query(User).all()
-
-
-def do_init():
-    users = list_users()
-    if not len(users):
-        print("USERS IS EMPTY!!!")
-        new_user = User(
-            email="test@test.com",
-            password="test"
-        )
-        db.session.add(new_user)
-        db.session.commit()
-        print("Created user!")
-
-
 @app.route("/users", methods=['GET'])
 def get_users():
-    do_init()
-    users = list_users()
-
-    for u in users:
-        print(f"FOUND {u.email}")
+    users = db.session.query(User).all()
     return users_schema.dump(users)
 
 

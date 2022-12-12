@@ -2,14 +2,12 @@ from flask import Flask
 from flask_marshmallow import Marshmallow
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
-from passlib.context import CryptContext
+from passlib.hash import argon2
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://test:test@localhost:5405/test'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.secret_key = 'CHANGEME'
+app.config.from_pyfile('settings.py')
 
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
 migrate = Migrate(app, db)
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+pwd_context = argon2
