@@ -24,6 +24,15 @@ content-type: application/json
 # LOGOUT
 DELETE http://localhost:5000/login HTTP/1.1
 
+# POST SCORE
+POST http://localhost:5000/users/scores HTTP/1.1
+content-type: application/json
+
+{
+    "score": 200,
+    "level": 1
+}
+
 
 # GET HIGH SCORE
 

@@ -16,6 +16,8 @@ flask-restful = "^0.3.9"
 marshmallow-sqlalchemy = "^0.28.1"
 uuid = "^1.30"
 sqlalchemy-utils = "^0.38.3"
+passlib = "^1.7.4"
+bcrypt = "^4.0.1"
 
 
 [build-system]

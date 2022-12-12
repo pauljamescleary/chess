@@ -1,4 +1,4 @@
-from config import app, db
+from config import app, db, pwd_context
 from flask import request, session
 from models import *
 from schemas import *
@@ -35,7 +35,7 @@ def get_users():
 def create_user():
     email = request.json.get('email')
     password = request.json.get('password')
-    user = User(email=email, password=password)
+    user = User(email=email, password=pwd_context.hash(password))
 
     try:
         db.session.add(user)
@@ -51,8 +51,11 @@ def login():
     password = request.json.get('password')
     user = db.session.query(User).filter(User.email == email).one_or_none()
     if user:
-        session['user_id'] = user.id
-        return "LOGIN SUCCESS"
+        if pwd_context.verify(password, user.password):
+            session['user_id'] = user.id
+            return "LOGIN SUCCESS"
+        else:
+            return "LOGIN FAILED, INVALID PASSWORD"
     else:
         return "LOGIN FAILED"
 
@@ -70,7 +73,7 @@ def save_score():
         score = request.json.get('score')
         level = request.json.get('level')
 
-        s = Score(score=score, level=level, user_id=id)
+        s = Score(score=score, level=level, user_id=user_id)
         db.session.add(s)
         db.session.commit()
 
