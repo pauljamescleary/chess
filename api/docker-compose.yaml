@@ -10,8 +10,8 @@ services:
       - default
     ports:
       - 5001:5000
-    env_file:
-      - ./.env     
+    environment:
+      - APP_DATABASE_URL=postgresql://test:test@chess_db:5432/test
     restart: always
 
   db:
