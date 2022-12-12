@@ -1,0 +1,28 @@
+version: '3.6'
+
+services:
+  api:
+    build: .
+    container_name: chess_api
+    depends_on:
+      - db
+    networks:
+      - default
+    ports:
+      - 5001:5000
+    env_file:
+      - ./.env.dev      
+    restart: always
+
+  db:
+    container_name: chess_db
+    environment:
+      POSTGRES_USER: test
+      POSTGRES_PASSWORD: test
+      POSTGRES_DB: test
+    image: postgres:latest
+    networks:
+      - default
+    ports:
+      - 5405:5432
+    restart: always
