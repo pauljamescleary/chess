@@ -7,7 +7,6 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.9"
-flask = "^2.2.2"
 flask-migrate = "^4.0.0"
 flask-sqlalchemy = "^3.0.2"
 psycopg2-binary = "^2.9.5"
@@ -19,6 +18,8 @@ sqlalchemy-utils = "^0.38.3"
 passlib = "^1.7.4"
 argon2-cffi = "^21.3.0"
 python-dotenv = "^0.21.0"
+flask = "^2.2.2"
+pytest-flask = "^1.2.0"
 
 
 [build-system]

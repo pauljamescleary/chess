@@ -1,14 +1,17 @@
 import pytest
-from chess
+import flask_migrate
+import chess
+from chess import db as _db
 from dotenv import load_dotenv
 
 
 @pytest.fixture(scope="session")
-def db():
-    load_dotenv(".env.dev")
-    db = create_app(testing=True)
+def app():
+    load_dotenv()
+    app = chess.create_app()
+    with app.app_context():
+        flask_migrate.upgrade()
     return app
-
 
 @pytest.fixture
 def db(app):
@@ -21,55 +24,3 @@ def db(app):
 
     _db.session.close()
     _db.drop_all()
-
-
-@pytest.fixture
-def admin_user(db):
-    user = User(
-        username='admin',
-        email='admin@admin.com',
-        password='admin'
-    )
-
-    db.session.add(user)
-    db.session.commit()
-
-    return user
-
-
-@pytest.fixture
-def admin_headers(admin_user, client):
-    data = {
-        'username': admin_user.username,
-        'password': 'admin'
-    }
-    rep = client.post(
-        '/auth/login',
-        data=json.dumps(data),
-        headers={'content-type': 'application/json'}
-    )
-
-    tokens = json.loads(rep.get_data(as_text=True))
-    return {
-        'content-type': 'application/json',
-        'authorization': 'Bearer %s' % tokens['access_token']
-    }
-
-
-@pytest.fixture
-def admin_refresh_headers(admin_user, client):
-    data = {
-        'username': admin_user.username,
-        'password': 'admin'
-    }
-    rep = client.post(
-        '/auth/login',
-        data=json.dumps(data),
-        headers={'content-type': 'application/json'}
-    )
-
-    tokens = json.loads(rep.get_data(as_text=True))
-    return {
-        'content-type': 'application/json',
-        'authorization': 'Bearer %s' % tokens['refresh_token']
-    }
