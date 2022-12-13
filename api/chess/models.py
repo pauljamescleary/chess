@@ -1,4 +1,4 @@
-from config import db
+from . import db
 from dataclasses import dataclass
 from sqlalchemy_utils import UUIDType
 import uuid

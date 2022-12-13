@@ -1,5 +1,5 @@
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
-from models import *
+from chess.models import User, Score
 
 class UserSchema(SQLAlchemyAutoSchema):
     class Meta:
