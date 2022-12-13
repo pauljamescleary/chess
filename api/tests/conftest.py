@@ -1,14 +1,14 @@
 import pytest
 import flask_migrate
 import chess
+from chess.models import User
+from chess import password_hasher
 from chess import db as _db
-from dotenv import load_dotenv
 
 
 @pytest.fixture(scope="session")
 def app():
-    load_dotenv()
-    app = chess.create_app()
+    app = chess.create_app(env='test')
     with app.app_context():
         flask_migrate.upgrade()
     return app
@@ -24,3 +24,11 @@ def db(app):
 
     _db.session.close()
     _db.drop_all()
+
+@pytest.fixture
+def sample_user(db):
+    user = User(email='test@test.com', password=password_hasher.hash("password"))
+    db.session.add(user)
+    db.session.commit()
+
+    return user

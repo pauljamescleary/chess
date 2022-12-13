@@ -1,3 +1,4 @@
+from dotenv import load_dotenv
 from flask import Flask
 from flask_marshmallow import Marshmallow
 from flask_migrate import Migrate
@@ -12,11 +13,17 @@ db = SQLAlchemy()
 # Used for hashing passwords / salt
 password_hasher = argon2
 
-def create_app():
+def create_app(env=None):
     app = Flask(__name__, instance_relative_config=False)
+
+    print(f"*** ENV({env}) ***")
+    if env:
+        load_dotenv(f".env.{env}")
 
     # Loads environment variables / settings
     app.config.from_pyfile('settings.py')
+
+    print(app.config['SQLALCHEMY_DATABASE_URI'])
 
     # Creates the database layer
     db.init_app(app)

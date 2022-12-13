@@ -53,7 +53,7 @@ def configure_routes(app, db, pwd_context):
     @app.route("/login", methods=['DELETE'])
     def logout():
         # Remove the session cookie        
-        session.pop('user_id')        
+        session.clear()       
         return 'OK'
 
     @app.route("/users/scores", methods=['POST'])
