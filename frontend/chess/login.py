@@ -8,7 +8,22 @@ from chess.service import InvalidLoginException, UserNotFoundException, ChessSer
 from chess.main import *
 from pathlib import Path
 
-ASSETS_PATH = Path(__file__).resolve().parent / "assets"
+import os
+import sys
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__))) + "/assets"
+    return os.path.join(base_path, relative_path)
+# def resource_path(relative_path):
+#     """ Get absolute path to resource, works for dev and for PyInstaller """
+#     try:
+#         # PyInstaller creates a temp folder and stores path in _MEIPASS
+#         base_path = sys._MEIPASS
+#     except Exception:
+#         base_path = Path(__file__).resolve().parent / 'assets'
+
+#     return os.path.join(base_path, relative_path)
+
 
 class Login:
 
@@ -40,7 +55,7 @@ class Login:
                                  bg='#779556', fg='white', font=('comic sans', 25, 'bold'))
         self.title_label.place(x=72, y=45)
         # Adds queen images on left side of the Title label
-        self.queen_image1 = Image.open(ASSETS_PATH / 'queen.png')
+        self.queen_image1 = Image.open(resource_path('queen.png'))
         resize_queen = self.queen_image1.resize((64, 64))
         queen_photo = ImageTk.PhotoImage(resize_queen)
         self.left_image_label = Label(
@@ -76,7 +91,7 @@ class Login:
 
         # SHOW AND HIDE PASSWORD #
         # Sets the "Hide Password" image and labels for the "Show" function
-        self.show_image = Image.open(ASSETS_PATH / 'Hide.png')
+        self.show_image = Image.open(resource_path('Hide.png'))
         self.show_photo = ImageTk.PhotoImage(self.show_image)
         self.show_button = Button(
             self.login_window, image=self.show_photo, bg='black', activebackground='black', cursor='hand2', bd=0, command=self.show)
@@ -90,11 +105,11 @@ class Login:
         self.login_label2.place(x=360, y=255)
 
         # "Show Password" image
-        self.hide_image = Image.open(ASSETS_PATH / 'Show.png')
+        self.hide_image = Image.open(resource_path('Show.png'))
         self.hide_photo = ImageTk.PhotoImage(self.hide_image)
 
         # Sets an image for the login button and sets placement
-        self.button_image = Image.open(ASSETS_PATH / 'LoginButtonImage.png')
+        self.button_image = Image.open(resource_path('LoginButtonImage.png'))
         button_photo = ImageTk.PhotoImage(self.button_image)
         self.login_button_label = Label(
             self.login_window, image=button_photo, bg='black')
@@ -199,7 +214,7 @@ class Login:
                                    relief=FLAT, bg='white', fg='black', font=('comic sans', 13, 'bold'), show='*')
         self.confirm_entry.place(x=200, y=280, width=200)
         # Sets Submit button image
-        self.submit1_image = Image.open(ASSETS_PATH / 'LoginButtonImage.png')
+        self.submit1_image = Image.open(resource_path('LoginButtonImage.png'))
         submit1_photo = ImageTk.PhotoImage(self.submit1_image)
         self.submit1_button_label = Label(
             self.forget_window, image=submit1_photo, bg='black')
@@ -257,7 +272,7 @@ class Login:
                                    relief=FLAT, bg='white', fg='black', font=('comic sans', 13, 'bold'), show='*')
         self.confirm_entry.place(x=200, y=280, width=200)
         # Sets Submit button image
-        self.submit2_image = Image.open(ASSETS_PATH / 'LoginButtonImage.png')
+        self.submit2_image = Image.open(resource_path('LoginButtonImage.png'))
         submit2_photo = ImageTk.PhotoImage(self.submit2_image)
         self.submit2_button_label = Label(
             self.create_window, image=submit2_photo, bg='black')

@@ -9,7 +9,12 @@ from pathlib import Path
 import json
 
 FPS = 60
-ASSETS_PATH = Path(__file__).resolve().parent / "assets"
+import os
+import sys
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__))) + "/assets"
+    return os.path.join(base_path, relative_path)
 
 """
 runs the main processes of the game such as drawing the board and shelf
@@ -17,7 +22,7 @@ runs the main processes of the game such as drawing the board and shelf
 
 
 def load_games_definitions():
-    with open(ASSETS_PATH / 'gameDefinitions.json') as file:
+    with open(resource_path('gameDefinitions.json')) as file:
         json_game_definitions = file.read()
         return json.loads(json_game_definitions)
 
@@ -45,11 +50,11 @@ def initialize_game(game_num):
     game_definition['SHELF_SIZE'] = game_definition['SQUARE_SIZE']
     ss = game_definition['SQUARE_SIZE']
     game_definition['QUEEN_PIC'] = pygame.transform.scale(pygame.image.load(
-        ASSETS_PATH / 'queen.png'), (ss, ss))
+        resource_path('queen.png')), (ss, ss))
     game_definition['ROOK_PIC'] = pygame.transform.scale(pygame.image.load(
-        ASSETS_PATH / 'rook.png'), (ss, ss))
+        resource_path('rook.png')), (ss, ss))
     game_definition['BISHOP_PIC'] = pygame.transform.scale(pygame.image.load(
-        ASSETS_PATH / 'bishop.png'), (ss, ss))
+        resource_path('bishop.png')), (ss, ss))
     WIN = pygame.display.set_mode(
         (game_definition['WIDTH'],
          game_definition['HEIGHT'] + game_definition['SHELF_SIZE'] + game_definition['START_MENU_HEIGHT']))
