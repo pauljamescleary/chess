@@ -1,9 +1,9 @@
 from tkinter import *
 from tkinter import messagebox
+root = Tk()
 from PIL import ImageTk, Image
 import pygame
 #import uuid
-from chess.db import ChessDB
 from chess.service import InvalidLoginException, UserNotFoundException, ChessService
 from chess.main import *
 from pathlib import Path
@@ -279,7 +279,7 @@ class Login:
             password = self.password_entry.get()
             self.service.login(email, password)
             print("LOGIN SUCCESSFUL!!!")
-            main_app(email, self.service)
+            main_app(self.service)
             self.LWIN.quit()
         except InvalidLoginException:
             messagebox.showerror('Login Failed', 'Login failed!')
@@ -296,7 +296,14 @@ class Login:
             self.service.signup(email, password)
 
 def run():
-    service = ChessService())
-    LWIN = Tk()  
+    print("*** STARTING ***")
+    service = ChessService("http://localhost:5000")
+    print("*** LOADED SERVICE ***")
+    LWIN = root  
     Login(service, LWIN)
+
+    print("*** RUNNING MAIN LOOP ***")
     LWIN.mainloop()
+
+if __name__ == '__main__':
+    run()

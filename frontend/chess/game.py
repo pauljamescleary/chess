@@ -10,14 +10,13 @@ from chess.constants import *
 class Game:
 
     # TODO: maybe here add ChessService
-    def __init__(self, win, game_definition, service, email):
+    def __init__(self, win, game_definition, service):
         self.game_def = game_definition
         self.ROWS = game_definition['ROWS']
         self.COLS = game_definition['COLS']
        # win.
        # self.SQUARE_SIZE = HEIGHT // ROWS
         self.service = service
-        self.email = email
         self._init()
         self.selected = None
         self.win = win

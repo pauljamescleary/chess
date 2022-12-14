@@ -8,9 +8,29 @@ def configure_routes(app, db, pwd_context, auth):
 
     @auth.verify_password
     def verify_password(email, password):
+        print('VERIFYING USER...')
         user = db.session.query(User).filter(User.email == email).one_or_none()
         if user and pwd_context.verify(password, user.password):
             return user
+        elif user:
+            print('USER FOUND, PASSWORD INCORRECT?')
+        else:
+            print('USER NOT FOUND!!!')
+
+    @app.before_request
+    def before_request():
+        print("*** BEFORE REQUEST***")
+        print(request.method, request.endpoint, request.authorization)
+
+        try:
+            request_js = request.data
+            if request_js:            
+                print(request_js)
+            else:
+                print('NO DATA?')
+        except Exception as err:
+            print(err)
+            
 
     @app.route("/users", methods=['GET'])
     def get_users():

@@ -57,7 +57,7 @@ def initialize_game(game_num):
     return WIN
 
 
-def main_app(service, email):
+def main_app(service):
     # Create a Database instance (ChessDB)
     # Create a ChessService(db)
     # Pass the service to whoever needs it
@@ -71,7 +71,7 @@ def main_app(service, email):
     # passing in first game definiton into game objectOD
     # TODO: pass chess esrvice into Game
 
-    game = Game(WIN, game_definition, service, email)
+    game = Game(WIN, game_definition, service)
 
     while run:
         clock.tick(FPS)

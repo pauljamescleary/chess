@@ -42,3 +42,7 @@ Authorization: Basic foo@bar.com:bar
 # GET USER INFO
 GET http://localhost:5000/user HTTP/1.1
 Authorization: Basic foo@bar.com:bar
+
+# GET USER INFO NO AUTH
+GET http://localhost:5000/user HTTP/1.1
+
