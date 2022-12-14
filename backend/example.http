@@ -25,7 +25,8 @@ content-type: application/json
 DELETE http://localhost:5000/login HTTP/1.1
 
 # POST SCORE
-POST http://localhost:5000/users/scores HTTP/1.1
+POST http://localhost:5000/scores HTTP/1.1
+Authorization: Basic foo@bar.com:bar
 content-type: application/json
 
 {
@@ -35,5 +36,9 @@ content-type: application/json
 
 
 # GET HIGH SCORE
+GET http://localhost:5000/scores/top HTTP/1.1
+Authorization: Basic foo@bar.com:bar
 
-GET http://localhost:5000/users/scores/top HTTP/1.1
+# GET USER INFO
+GET http://localhost:5000/user HTTP/1.1
+Authorization: Basic foo@bar.com:bar

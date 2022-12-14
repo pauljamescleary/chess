@@ -10,7 +10,7 @@ def configure_routes(app, db, pwd_context, auth):
     def verify_password(email, password):
         user = db.session.query(User).filter(User.email == email).one_or_none()
         if user and pwd_context.verify(password, user.password):
-            return user.id
+            return user
 
     @app.route("/users", methods=['GET'])
     def get_users():
@@ -32,11 +32,19 @@ def configure_routes(app, db, pwd_context, auth):
 
         return user_schema.dump(user)
 
-    @app.route("/users/scores", methods=['POST'])
+    @app.route("/user", methods=['GET'])
+    @auth.login_required
+    def get_user():
+        # Hide the password
+        user = auth.current_user()
+        user.password = None
+        return user_schema.dump(user)        
+
+    @app.route("/scores", methods=['POST'])
     @auth.login_required
     def save_score():
         # Get the user id from the session cookie
-        user_id = auth.current_user()
+        user_id = auth.current_user().id
 
         if user_id:
             score = request.json.get('score')
@@ -51,10 +59,10 @@ def configure_routes(app, db, pwd_context, auth):
             print("Unable to save score, no user session found")
             abort(401)
 
-    @app.route("/users/scores/top", methods=['GET'])
+    @app.route("/scores/top", methods=['GET'])
     @auth.login_required
     def high_score():
-        user_id = auth.current_user()
+        user_id = auth.current_user().id
 
         if user_id:
             score = db.session.query(Score).filter(Score.user_id == user_id).order_by(
