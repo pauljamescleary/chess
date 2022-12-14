@@ -9,11 +9,12 @@ class UserNotFoundException(Exception):
 
 class ChessService:
 
-    def __init__(self):
+    def __init__(self, base_url):
         self.session = requests.Session()
 
     def signup(self, email, password):
-        self.db.add_user(email, password)
+        json = { "email": email, "password": password}
+        self.session.post('http://localhost:5000/')
 
     def login(self, email, password):
         user = self.db.get_user_by_email(email)

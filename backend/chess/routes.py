@@ -4,7 +4,13 @@ from chess.schemas import *
 from sqlalchemy.exc import IntegrityError
 
 
-def configure_routes(app, db, pwd_context):
+def configure_routes(app, db, pwd_context, auth):
+
+    @auth.verify_password
+    def verify_password(email, password):
+        user = db.session.query(User).filter(User.email == email).one_or_none()
+        if user and pwd_context.verify(password, user.password):
+            return user.id
 
     @app.route("/users", methods=['GET'])
     def get_users():
@@ -26,40 +32,11 @@ def configure_routes(app, db, pwd_context):
 
         return user_schema.dump(user)
 
-    @app.route("/login", methods=['POST'])
-    def login():
-        # Assumes the user passes in json like { "email": "x", "password": "y"}
-        email = request.json.get('email')
-        password = request.json.get('password')
-
-        # First, we attempt to find the user from the database
-        # Possible that the user does not exist
-        user = db.session.query(User).filter(User.email == email).one_or_none()
-        if user:
-            # Verify that the password provided matches the hashed password
-            # from the database
-            if pwd_context.verify(password, user.password):
-                # Create a session with the user_id and return 200 OK
-                session['user_id'] = user.id
-                return 'OK'
-            else:
-                # Password didn't match, abort with a 401
-                print(f"Password provided for user {email} did not match")
-                abort(401)
-        else:
-            # User was not found
-            abort(401)
-
-    @app.route("/login", methods=['DELETE'])
-    def logout():
-        # Remove the session cookie        
-        session.clear()       
-        return 'OK'
-
     @app.route("/users/scores", methods=['POST'])
+    @auth.login_required
     def save_score():
         # Get the user id from the session cookie
-        user_id = session.get('user_id')
+        user_id = auth.current_user()
 
         if user_id:
             score = request.json.get('score')
@@ -75,8 +52,9 @@ def configure_routes(app, db, pwd_context):
             abort(401)
 
     @app.route("/users/scores/top", methods=['GET'])
+    @auth.login_required
     def high_score():
-        user_id = session.get('user_id')
+        user_id = auth.current_user()
 
         if user_id:
             score = db.session.query(Score).filter(Score.user_id == user_id).order_by(

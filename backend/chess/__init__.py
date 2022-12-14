@@ -1,5 +1,6 @@
 from dotenv import load_dotenv
 from flask import Flask
+from flask_httpauth import HTTPBasicAuth
 from flask_marshmallow import Marshmallow
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
@@ -34,9 +35,12 @@ def create_app(env=None):
     # Used for marshalling data to/from JSON
     Marshmallow(app)
 
+    # Used for authenticating the caller
+    auth = HTTPBasicAuth()
+
     # Sets up the API routes
     from . import routes
-    routes.configure_routes(app, db, password_hasher)
+    routes.configure_routes(app, db, password_hasher, auth)
 
     return app
 
