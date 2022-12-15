@@ -1,12 +1,12 @@
 #!/bin/sh
 set -e
 
-echo "SQLALCHEMY_DATABASE_URI = $SQLALCHEMY_DATABASE_URI"
+echo "FLASK_SQLALCHEMY_DATABASE_URI = $FLASK_SQLALCHEMY_DATABASE_URI"
 
 echo "Files..."
 ls -al
 
-export FLASK_APP="chess:create_app()"
+export FLASK_APP="chess"
 
 echo "Running migrations..."
 flask db upgrade

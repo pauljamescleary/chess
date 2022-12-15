@@ -11,8 +11,8 @@ services:
     ports:
       - 5001:5000
     environment:
-      - APP_DATABASE_URL=postgresql://test:test@chess_db:5432/test
-      - APP_SECRET=changeme
+      - FLASK_SQLALCHEMY_DATABASE_URI=postgresql://test:test@chess_db:5432/test
+      - FLASK_SECRET_KEY=changeme
     restart: always
 
   db:
@@ -22,6 +22,8 @@ services:
       POSTGRES_PASSWORD: test
       POSTGRES_DB: test
     image: postgres:latest
+    volumes:
+      - ./.pgdata:/var/lib/postgresql/data
     networks:
       - default
     ports:
