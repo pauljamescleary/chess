@@ -12,7 +12,8 @@ echo "Running migrations..."
 flask db upgrade
 
 echo "Starting app..."
-flask run --host=0.0.0.0
+# flask run --host=0.0.0.0
+gunicorn --config gunicorn_config.py chess:app
 
 # Not sure why we want to run gunicorn here???
 # gunicorn -c gunicorn.config.py wsgi:app
