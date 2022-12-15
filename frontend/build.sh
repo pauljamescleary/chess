@@ -14,7 +14,7 @@ pyinstaller \
 --onefile \
 -n chessgame \
 --clean \
---add-data "./chess/assets/bishop.png:assets" \
+--add-data "chess/assets/bishop.png:assets" \
 --add-data "chess/assets/boo.mp3:assets" \
 --add-data "chess/assets/clack.mp3:assets" \
 --add-data "chess/assets/correct.wav:assets" \
