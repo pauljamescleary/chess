@@ -11,19 +11,6 @@ content-type: application/json
     "password": "bar"
 }
 
-# VALID LOGIN
-
-POST http://localhost:5000/login HTTP/1.1
-content-type: application/json
-
-{
-    "email": "foo@bar.com",
-    "password": "bar"
-}
-
-# LOGOUT
-DELETE http://localhost:5000/login HTTP/1.1
-
 # POST SCORE
 POST http://localhost:5000/scores HTTP/1.1
 Authorization: Basic foo@bar.com:bar

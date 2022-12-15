@@ -1,34 +1,28 @@
 import pytest
-import flask_migrate
-import chess
-from chess.models import User
-from chess import password_hasher
-from chess import db as _db
-
 
 @pytest.fixture(scope="session")
 def app():
-    app = chess.create_app(env='test')
-    with app.app_context():
-        flask_migrate.upgrade()
+    # set env vars
+    import os
+    os.environ['FLASK_SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'
+    os.environ['FLASK_SECRET_KEY'] = 'fortesting'
+    os.environ['FLASK_DEBUG'] = '1'
+    from chess import app
     return app
 
 @pytest.fixture
-def db(app):
-    _db.app = app
+def sample_user():
+    from chess import password_hasher
+    from chess import db
+    from chess.models import User
 
-    with app.app_context():
-        _db.create_all()
-
-    yield _db
-
-    _db.session.close()
-    _db.drop_all()
-
-@pytest.fixture
-def sample_user(db):
-    user = User(email='test@test.com', password=password_hasher.hash("password"))
-    db.session.add(user)
-    db.session.commit()
+    try:
+        user = User(email='test@test.com', password=password_hasher.hash("password"))
+        db.session.add(user)
+        db.session.commit()
+    except:
+        # This happened because of a unique constraint
+        db.session.rollback()
+        pass
 
     return user

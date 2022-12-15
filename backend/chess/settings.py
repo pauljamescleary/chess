@@ -1,5 +1,0 @@
-from os import environ
-
-SQLALCHEMY_DATABASE_URI = environ['APP_DATABASE_URL']
-SQLALCHEMY_TRACK_MODIFICATIONS = False
-SECRET_KEY = environ['APP_SECRET']

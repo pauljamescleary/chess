@@ -1,49 +1,38 @@
-from dotenv import load_dotenv
-from flask import Flask
+import os
+from flask import Flask, abort, jsonify, request, session
+from sqlalchemy.exc import IntegrityError
 from flask_httpauth import HTTPBasicAuth
-from flask_marshmallow import Marshmallow
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from passlib.hash import argon2
 
+app = Flask(__name__)
 
-# This is accessed elsewhere, so initialize here
-# to enable access as a global variable
-db = SQLAlchemy()
+# Loads environment variables prefixed with FLASK_
+app.config.from_prefixed_env()
 
-# Used for hashing passwords / salt
+# Initializes the db to use with the app
+db = SQLAlchemy(app)
+print(app.config['SQLALCHEMY_DATABASE_URI'])
+
+# For password salt and secrets
 password_hasher = argon2
 
-def create_app(env=None):
-    app = Flask(__name__, instance_relative_config=False)
+# Enables creation of migrations
+migrate = Migrate(app, db)
 
-    print(f"*** ENV({env}) ***")
-    if env:
-        load_dotenv(f".env.{env}")
+# Apply migrations if in sqllite
+db_url = app.config['SQLALCHEMY_DATABASE_URI']
+if db_url.startswith('sqlite'):
+    # We MUST import chess models here
+    # otherwise nothing will happen in test mode
+    import chess.models
+    with app.app_context():
+        db.create_all()
 
-    # Loads environment variables / settings
-    app.config.from_pyfile('settings.py')
+# Used for authenticating the caller
+auth = HTTPBasicAuth()
 
-    print(app.config['SQLALCHEMY_DATABASE_URI'])
-
-    # Creates the database layer
-    db.init_app(app)
-
-    # Enables creation of migrations
-    Migrate(app, db)    
-
-    # Used for marshalling data to/from JSON
-    Marshmallow(app)
-
-    # Used for authenticating the caller
-    auth = HTTPBasicAuth()
-
-    # Sets up the API routes
-    from . import routes
-    routes.configure_routes(app, db, password_hasher, auth)
-
-    return app
-
-if __name__ == '__main__':
-    print("*** IN INIT ***")
-    create_app().run(debug=True, host='0.0.0.0')    
+# Configure the endpoints
+# Make sure we do the import here, otherwise we get python errors
+import chess.routes
