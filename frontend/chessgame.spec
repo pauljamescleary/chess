@@ -6,9 +6,9 @@ block_cipher = None
 
 a = Analysis(
     ['entry_point.py'],
-    pathex=['/Users/paulcleary/Library/Caches/pypoetry/virtualenvs/chess-e6_60TrL-py3.9/lib/python3.9/site-packages'],
+    pathex=[],
     binaries=[],
-    datas=[('./chess/assets/bishop.png', 'assets'), ('chess/assets/boo.mp3', 'assets'), ('chess/assets/clack.mp3', 'assets'), ('chess/assets/correct.wav', 'assets'), ('chess/assets/gameDefinitions.json', 'assets'), ('chess/assets/Hide.png', 'assets'), ('chess/assets/LoginButtonImage.png', 'assets'), ('chess/assets/queen.png', 'assets'), ('chess/assets/rook.png', 'assets'), ('chess/assets/Show.png', 'assets')],
+    datas=[('chess/assets/bishop.png', 'assets'), ('chess/assets/boo.mp3', 'assets'), ('chess/assets/clack.mp3', 'assets'), ('chess/assets/correct.wav', 'assets'), ('chess/assets/gameDefinitions.json', 'assets'), ('chess/assets/Hide.png', 'assets'), ('chess/assets/LoginButtonImage.png', 'assets'), ('chess/assets/queen.png', 'assets'), ('chess/assets/rook.png', 'assets'), ('chess/assets/Show.png', 'assets')],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},
