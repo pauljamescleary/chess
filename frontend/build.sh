@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # This assumes poetry, gets where poetry stores its dependencies
-VIRTUAL_ENV_PATH=`poetry show -v 2> /dev/null | head -n1 | cut -d ' ' -f 3`
+# VIRTUAL_ENV_PATH=`poetry show -v 2> /dev/null | head -n1 | cut -d ' ' -f 3`
 
 # Clean up anything just in case
 rm -rf dist
@@ -9,7 +9,6 @@ rm -rf build
 
 # And go...
 pyinstaller \
---paths "$VIRTUAL_ENV_PATH/lib/python3.9/site-packages" \
 --windowed \
 --onefile \
 -n chessgame \

@@ -3,7 +3,7 @@ GET http://localhost:5000/users
 
 # CREATE TEST USER
 
-POST http://localhost:5000/users HTTP/1.1
+POST http://54.159.15.153:5000/users HTTP/1.1
 content-type: application/json
 
 {
@@ -12,7 +12,7 @@ content-type: application/json
 }
 
 # POST SCORE
-POST http://localhost:5000/scores HTTP/1.1
+POST http://54.159.15.153:5000/scores HTTP/1.1
 Authorization: Basic foo@bar.com:bar
 content-type: application/json
 
@@ -23,13 +23,13 @@ content-type: application/json
 
 
 # GET HIGH SCORE
-GET http://localhost:5000/scores/top HTTP/1.1
+GET http://54.159.15.153:5000/scores/top HTTP/1.1
 Authorization: Basic foo@bar.com:bar
 
 # GET USER INFO
-GET http://localhost:5000/user HTTP/1.1
+GET http://54.159.15.153:5000/user HTTP/1.1
 Authorization: Basic foo@bar.com:bar
 
 # GET USER INFO NO AUTH
-GET http://localhost:5000/user HTTP/1.1
+GET http://54.159.15.153:5000/user HTTP/1.1
 

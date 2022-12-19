@@ -29,8 +29,7 @@ class Score(db.Model):
     score: int
     level: int
 
-    user_email = db.Column(db.String, db.ForeignKey(
-        "users.email"), primary_key=True)
+    user_email = db.Column(db.String, db.ForeignKey("users.email"), primary_key=True)
     created_at = db.Column(db.DateTime, primary_key=True,
                            index=True, default=datetime.datetime.utcnow)
     score = db.Column(db.Integer, nullable=False, index=True)

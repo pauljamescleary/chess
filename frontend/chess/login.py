@@ -247,9 +247,9 @@ class Login:
         self.email_label = Label(
             self.create_window, text='Email', bg='black', fg='grey', font=('comic sans', 13, 'bold'))
         self.email_label.place(x=143, y=160)
-        self.email_entry = Entry(self.create_window, highlightthickness=0,
+        self.create_email_entry = Entry(self.create_window, highlightthickness=0,
                                  relief=FLAT, bg='white', fg='black', font=('comic sans', 13, 'bold'))
-        self.email_entry.place(x=200, y=160, width=200)
+        self.create_email_entry.place(x=200, y=160, width=200)
         # Creates the email label and entry field
         self.username_label = Label(
             self.create_window, text='Username', bg='black', fg='grey', font=('comic sans', 13, 'bold'))
@@ -261,9 +261,9 @@ class Login:
         self.password_label = Label(
             self.create_window, text='New Password', bg='black', fg='grey', font=('comic sans', 13, 'bold'))
         self.password_label.place(x=68, y=240)
-        self.password_entry = Entry(self.create_window, highlightthickness=0,
+        self.create_password_entry = Entry(self.create_window, highlightthickness=0,
                                     relief=FLAT, bg='white', fg='black', font=('comic sans', 13, 'bold'), show='*')
-        self.password_entry.place(x=200, y=240, width=200)
+        self.create_password_entry.place(x=200, y=240, width=200)
         # Creates the confirm password label and entry field
         self.confirm_label = Label(
             self.create_window, text='Confirm Password', bg='black', fg='grey', font=('comic sans', 13, 'bold'))
@@ -301,8 +301,8 @@ class Login:
             print("LOGIN FAILED!!!")
 
     def create_account_submit(self):
-        email = self.email_entry.get()
-        password = self.password_entry.get()
+        email = self.create_email_entry.get()
+        password = self.create_password_entry.get()
         password2 = self.confirm_entry.get()
 
         if password != password2:
