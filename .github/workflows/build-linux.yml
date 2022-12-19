@@ -14,7 +14,7 @@ jobs:
       uses: JackMcKew/pyinstaller-action-linux@main
       with:
         path: frontend
-        spec: frontend/chessgame.spec
+        spec: chessgame.spec
 
     - uses: actions/upload-artifact@v2
       with:
