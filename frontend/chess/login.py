@@ -172,7 +172,7 @@ class Login:
         self.show_button = Button(
             self.login_window, image=self.show_photo, bg='black', activebackground='black', cursor='hand2', bd=0, command=self.LWIN.withdraw())
         """Opens the game"""
-        main_app(self.service, None)
+        main_app(self.service)
         self.LWIN.quit()
 
     # Allows user to create a new password
