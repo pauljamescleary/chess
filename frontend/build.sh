@@ -2,7 +2,8 @@
 
 # This assumes poetry, gets where poetry stores its dependencies
 # VIRTUAL_ENV_PATH=`poetry show -v 2> /dev/null | head -n1 | cut -d ' ' -f 3`
-SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+# SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" &> /dev/null && (pwd -W 2> /dev/null || pwd))
 
 # Clean up anything just in case
 rm -rf dist
