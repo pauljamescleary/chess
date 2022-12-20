@@ -57,7 +57,7 @@ jobs:
       - name: List distribution files
         run: |
           cd frontend
-          ls -al
+          ls -al dist
           echo "$PWD"
           
       # Archive the PyInstaller build using the appropriate tool for the platform.
