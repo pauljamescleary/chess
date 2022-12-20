@@ -22,7 +22,11 @@ jobs:
             OUT_FILE_NAME: ./dist/chessgame.zip
           - os: windows-latest
             TARGET: windows
-            CMD_BUILD: ./frontend/build.sh
+            CMD_BUILD: |
+              ./frontend/build.sh
+              cd dist/
+              echo $PWD
+              ls -al
             OUT_FILE_NAME: ./dist/chessgame.exe         
 
     steps:
