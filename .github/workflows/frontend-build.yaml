@@ -25,7 +25,7 @@ jobs:
               ls -al
               ls -al dist/
             output-file-name: ./dist/chessgame.exe             
-          - os: macos-10.15
+          - os: macos-latest
             platform-name: macos.x64
             build-cmd: |
               ./frontend/build.sh
@@ -65,29 +65,13 @@ jobs:
           sudo apt-get install libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev libfreetype6-dev libportmidi-dev libjpeg-dev
       - name: Install Python dependencies
         run: |
-          python -m pip install --upgrade pip
-          python -m pip install -r frontend/requirements.txt
-      - name: Run PyInstaller
-        env:
-          PYTHONOPTIMIZE: 1 # Enable optimizations as if the -O flag is given.
+          pip install -r frontend/requirements.txt
+      - name: Run Build 
         run: ${{matrix.build-cmd}}
-      # This step exists for debugging.  Such as checking if data files were included correctly by PyInstaller.
       - name: List distribution files
         run: |
           ls -al dist
           echo "$PWD"
-          
-      # Archive the PyInstaller build using the appropriate tool for the platform.
-      # - name: Tar files
-      #   if: runner.os != 'Windows'
-      #   run: |
-      #     tar --format=ustar -czvf ${{ env.archive-name }}.tar.gz dist/*/
-      # - name: Archive files
-      #   if: runner.os == 'Windows'
-      #   shell: pwsh
-      #   run: |
-      #     Compress-Archive dist/*/ ${{ env.archive-name }}.zip
-      # Upload archives as artifacts, these can be downloaded from the GitHub actions page.
       - uses: actions/upload-artifact@v2
         with:
           name: ${{env.archive-name}}
