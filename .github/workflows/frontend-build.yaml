@@ -50,7 +50,9 @@ jobs:
       - name: Run PyInstaller
         env:
           PYTHONOPTIMIZE: 1 # Enable optimizations as if the -O flag is given.
-        run: ./frontend/build.sh
+        run: |
+          cd frontend
+          pyinstaller chessgame.spec
       # This step exists for debugging.  Such as checking if data files were included correctly by PyInstaller.
       - name: List distribution files
         run: |
