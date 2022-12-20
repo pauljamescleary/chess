@@ -56,7 +56,9 @@ jobs:
       # This step exists for debugging.  Such as checking if data files were included correctly by PyInstaller.
       - name: List distribution files
         run: |
-          find dist
+          ls -al
+          echo "$PWD"
+          
       # Archive the PyInstaller build using the appropriate tool for the platform.
       - name: Tar files
         if: runner.os != 'Windows'
