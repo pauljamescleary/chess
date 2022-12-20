@@ -12,13 +12,13 @@ jobs:
         include:
           - os: macos-latest
             TARGET: macos
-            CMD_BUILD: >
+            CMD_BUILD: |
               ./frontend/build.sh
               cd dist/
               echo $PWD
               ls -al
               zip -r9 chessgame chessgame.app/
-            OUT_FILE_NAME: ./dist/chessgame.zip
+            OUT_FILE_NAME: chessgame.zip
 
     steps:
     - uses: actions/checkout@v3
