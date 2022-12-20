@@ -16,7 +16,7 @@ jobs:
               ./frontend/build.sh
               cd dist/ &&
               zip -r9 chessgame chessgame.app/
-            OUT_FILE_NAME: chessgame.zip
+            OUT_FILE_NAME: ./dist/chessgame.zip
 
     steps:
     - uses: actions/checkout@v2
