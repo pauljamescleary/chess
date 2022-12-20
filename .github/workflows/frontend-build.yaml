@@ -78,27 +78,20 @@ jobs:
           echo "$PWD"
           
       # Archive the PyInstaller build using the appropriate tool for the platform.
-      - name: Tar files
-        if: runner.os != 'Windows'
-        run: |
-          tar --format=ustar -czvf ${{ env.archive-name }}.tar.gz dist/*/
-      - name: Archive files
-        if: runner.os == 'Windows'
-        shell: pwsh
-        run: |
-          Compress-Archive dist/*/ ${{ env.archive-name }}.zip
+      # - name: Tar files
+      #   if: runner.os != 'Windows'
+      #   run: |
+      #     tar --format=ustar -czvf ${{ env.archive-name }}.tar.gz dist/*/
+      # - name: Archive files
+      #   if: runner.os == 'Windows'
+      #   shell: pwsh
+      #   run: |
+      #     Compress-Archive dist/*/ ${{ env.archive-name }}.zip
       # Upload archives as artifacts, these can be downloaded from the GitHub actions page.
       - uses: actions/upload-artifact@v2
         with:
-          name: ${{ env.archive-name }}
-          path: ${{matrix.OUT_FILE_NAME}}      
-      - name: "Upload Artifact"
-        uses: actions/upload-artifact@v2
-        with:
-          name: automated-builds
-          path: ${{ env.archive-name }}.*
-          retention-days: 7
-          if-no-files-found: error
+          name: ${{env.archive-name}}
+          path: ${{matrix.output-file-name}}      
       # # If a tag is pushed then a new archives are uploaded to GitHub Releases automatically.
       # - name: Upload release
       #   if: startsWith(github.ref, 'refs/tags/')
