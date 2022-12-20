@@ -18,7 +18,8 @@ jobs:
               echo $PWD
               ls -al
               zip -r9 chessgame chessgame.app/
-            OUT_FILE_NAME: chessgame.zip
+              ls -al
+            OUT_FILE_NAME: ./dist/chessgame.zip
 
     steps:
     - uses: actions/checkout@v3
