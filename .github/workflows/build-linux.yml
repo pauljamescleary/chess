@@ -20,6 +20,10 @@ jobs:
               zip -r9 chessgame chessgame.app/
               ls -al
             OUT_FILE_NAME: ./dist/chessgame.zip
+          - os: windows-latest
+            TARGET: windows
+            CMD_BUILD: ./frontend/build.sh
+            OUT_FILE_NAME: ./dist/chessgame.exe         
 
     steps:
     - uses: actions/checkout@v3
