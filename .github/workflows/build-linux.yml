@@ -12,8 +12,11 @@ jobs:
         include:
           - os: macos-latest
             TARGET: macos
-            CMD_BUILD: ./frontend/build.sh
-            OUT_FILE_NAME: ./dist/chessgame
+            CMD_BUILD: >
+              ./frontend/build.sh
+              cd dist/ &&
+              zip -r9 chessgame chessgame.app/
+            OUT_FILE_NAME: chessgame.zip
 
     steps:
     - uses: actions/checkout@v2
