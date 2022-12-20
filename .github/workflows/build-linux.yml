@@ -13,7 +13,7 @@ jobs:
           - os: macos-latest
             TARGET: macos
             CMD_BUILD: ./frontend/build.sh
-            OUT_FILE_NAME: ./frontend/dist/chessgame
+            OUT_FILE_NAME: ./dist/chessgame
 
     steps:
     - uses: actions/checkout@v2
