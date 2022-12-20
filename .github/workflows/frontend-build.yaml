@@ -1,7 +1,8 @@
 name: frontend-build
 
 on:
-  workflow_dispatch
+  push:
+    tags: [ "v*.*.*" ]  
 
 defaults:
   run:
