@@ -14,7 +14,9 @@ jobs:
             TARGET: macos
             CMD_BUILD: >
               ./frontend/build.sh
-              cd dist/ &&
+              cd dist/
+              echo $PWD
+              ls -al
               zip -r9 chessgame chessgame.app/
             OUT_FILE_NAME: ./dist/chessgame.zip
 
