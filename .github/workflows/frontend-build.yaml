@@ -62,11 +62,6 @@ jobs:
           ARCHIVE_NAME=chessgame-`git describe --always`-${{ matrix.platform-name }}${{ matrix.output-file-ext }}
           echo "Archive name set to: $ARCHIVE_NAME"
           echo "archive-name=$ARCHIVE_NAME" >> $GITHUB_ENV
-      - name: Set up Python ${{ env.python-version }}
-        uses: actions/setup-python@v4
-        with:
-          python-version: ${{ env.python-version }}
-          cache: 'pip'
       - name: Install APT dependencies
         if: runner.os == 'Linux'
         run: |
@@ -91,6 +86,11 @@ jobs:
             uuid-dev \
             upx
           sudo ldconfig
+      - name: Set up Python ${{ env.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.python-version }}
+          cache: 'pip'          
           
       - name: Install Python dependencies
         run: |
