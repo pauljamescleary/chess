@@ -1,8 +1,9 @@
 name: frontend-build
 
 on:
-  push:
-    tags: [ "v*.*.*" ]  
+  workflow_dispatch
+#   push:
+#     tags: [ "v*.*.*" ]  
 
 defaults:
   run:
@@ -67,7 +68,24 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           sudo apt-get update
-          sudo apt-get install libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev libfreetype6-dev libportmidi-dev libjpeg-dev
+          sudo apt-get install -y --no-install-recommends \
+            libbz2-dev \
+            libreadline-dev \
+            libsqlite3-dev \
+            libssl-dev \
+            zlib1g-dev \
+            libffi-dev \
+            libsdl2-dev \
+            libsdl2-image-dev \
+            libsdl2-mixer-dev \
+            libsdl2-ttf-dev \
+            libfreetype6-dev \
+            libportmidi-dev \
+            libjpeg-dev \
+            libgdbm-dev \
+            libgdbm3 \
+            uuid-dev \
+            upx        
       - name: Install Python dependencies
         run: |
           pip install -r frontend/requirements.txt
