@@ -47,9 +47,8 @@ jobs:
             platform-name: linux.x64
             build-cmd: |
               cd frontend
-              ./build.sh
-              cd ../dist/
-              ls -al
+              pyinstaller chessgame.spec
+              ls -al dist/
               echo $PWD
             output-file-name: ./dist/chessgame
             output-file-ext: ""
