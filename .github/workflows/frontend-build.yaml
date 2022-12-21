@@ -30,7 +30,8 @@ jobs:
               echo $PWD
               ls -al
               ls -al dist/
-            output-file-name: ./dist/chessgame.exe             
+            output-file-name: ./dist/chessgame.exe
+            output-file-ext: .exe
           - os: macos-latest
             platform-name: macos.x64
             build-cmd: |
@@ -41,6 +42,7 @@ jobs:
               zip -r9 chessgame chessgame.app/
               ls -al
             output-file-name: ./dist/chessgame.zip
+            output-file-ext: .zip
           - os: ubuntu-20.04
             platform-name: linux.x64
             build-cmd: |
@@ -48,7 +50,8 @@ jobs:
               cd dist/
               ls -al
               echo $PWD
-            output-file-name: ./dist/chessgame          
+            output-file-name: ./dist/chessgame
+            output-file-ext: ""
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -56,7 +59,7 @@ jobs:
           fetch-depth: 0
       - name: Set archive name
         run: |
-          ARCHIVE_NAME=chessgame-`git describe --always`-${{ matrix.platform-name }}
+          ARCHIVE_NAME=chessgame-`git describe --always`-${{ matrix.platform-name }}${{ matrix.output-file-ext }}
           echo "Archive name set to: $ARCHIVE_NAME"
           echo "archive-name=$ARCHIVE_NAME" >> $GITHUB_ENV
       - name: Set up Python ${{ env.python-version }}
@@ -69,6 +72,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends \
+            python3-tk \
             libpng16-16 \
             libbz2-dev \
             libreadline-dev \
