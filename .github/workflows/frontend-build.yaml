@@ -46,8 +46,9 @@ jobs:
           - os: ubuntu-22.04
             platform-name: linux.x64
             build-cmd: |
-              ./frontend/build.sh
-              cd dist/
+              cd frontend
+              ./build.sh
+              cd ../dist/
               ls -al
               echo $PWD
             output-file-name: ./dist/chessgame
