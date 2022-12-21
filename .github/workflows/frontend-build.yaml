@@ -69,6 +69,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends \
+            libpng16-16 \
             libbz2-dev \
             libreadline-dev \
             libsqlite3-dev \
