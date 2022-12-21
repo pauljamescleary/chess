@@ -66,8 +66,7 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           sudo apt-get update
-          sudo apt-get install -y --no-install-recommends \
-            python3-tk \
+          sudo apt-get install -y \
             libpng16-16 \
             libbz2-dev \
             libreadline-dev \
@@ -84,7 +83,9 @@ jobs:
             libjpeg-dev \
             libgdbm-dev \
             uuid-dev \
-            upx
+            upx \
+            python3-tk \
+            python3-pygame            
           sudo ldconfig
       - name: Set up Python ${{ env.python-version }}
         uses: actions/setup-python@v4
