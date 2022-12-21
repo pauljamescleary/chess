@@ -46,8 +46,14 @@ jobs:
           - os: ubuntu-22.04
             platform-name: linux.x64
             build-cmd: |
+              echo "Finding libpng..."
+              sudo find / -name '*libpng*16'
+              
+              echo "Performing build...
               cd frontend
               pyinstaller chessgame.spec
+              
+              echo "Here are the dist files..."
               ls -al dist/
               echo $PWD
             output-file-name: ./dist/chessgame
