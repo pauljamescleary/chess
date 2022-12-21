@@ -67,6 +67,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y \
+            tk8.6  libtk8.6 tcl8.6 libtcl8.6 \
             libpng16-16 \
             libbz2-dev \
             libreadline-dev \
