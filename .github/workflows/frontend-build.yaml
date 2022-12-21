@@ -83,7 +83,6 @@ jobs:
             libportmidi-dev \
             libjpeg-dev \
             libgdbm-dev \
-            libgdbm3 \
             uuid-dev \
             upx        
       - name: Install Python dependencies
