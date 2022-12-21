@@ -47,7 +47,7 @@ jobs:
             platform-name: linux.x64
             build-cmd: |
               echo "Finding libpng..."
-              sudo find / -name '*libpng*16'
+              sudo find / -name "*libpng*16"
               
               echo "Performing build...
               cd frontend
@@ -72,8 +72,10 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           sudo apt-get update
+          sudo apt-get install -y libpng16-16
+          sudo apt-get install -y libpng-dev
           sudo apt-get install -y \
-            tk8.6  libtk8.6 tcl8.6 libtcl8.6 \
+            tk8.6 libtk8.6 tcl8.6 libtcl8.6 \
             libpng16-16 \
             libbz2-dev \
             libreadline-dev \
