@@ -85,7 +85,9 @@ jobs:
             libjpeg-dev \
             libgdbm-dev \
             uuid-dev \
-            upx        
+            upx
+          sudo ldconfig
+          
       - name: Install Python dependencies
         run: |
           pip install -r frontend/requirements.txt
