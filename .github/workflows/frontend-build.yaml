@@ -95,6 +95,7 @@ jobs:
       - name: Install Python dependencies
         run: |
           pip install -r frontend/requirements.txt
+          pip install pyinstaller
       - name: Run Build 
         run: ${{matrix.build-cmd}}
       - uses: actions/upload-artifact@v2
