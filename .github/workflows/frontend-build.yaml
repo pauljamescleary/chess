@@ -43,7 +43,7 @@ jobs:
               ls -al
             output-file-name: ./dist/chessgame.zip
             output-file-ext: .zip
-          - os: ubuntu-20.04
+          - os: ubuntu-22.04
             platform-name: linux.x64
             build-cmd: |
               ./frontend/build.sh
